@@ -45,6 +45,7 @@ public class Change extends JFrame implements ActionListener{
         }
     }
 	public void initDisplay() {
+		jb_ok.addActionListener(this);
 		setContentPane(new mypana3());
 		this.setLayout(null);
         this.setVisible(true);
@@ -86,6 +87,7 @@ public class Change extends JFrame implements ActionListener{
 		Object obj = e.getSource();
 		// 확인버튼 누르면..
 		if (obj == jb_ok) {
+		this.dispose();
 		new SignChange();
 		}
 
