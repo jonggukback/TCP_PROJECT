@@ -22,14 +22,17 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+
 public class TalkClient extends JFrame implements ActionListener {
+	/*****************************************
+	 * 					선언부				 *
+	 *****************************************/
 	////////////////통신과 관련한 전역변수 추가 시작//////////////
 	Socket 				socket 		= null;
 	ObjectOutputStream 	oos 		= null;	//말 하고 싶을 때
 	ObjectInputStream 	ois			= null;	//듣기 할 때
 	String 				nickName	= null;	//닉네임 등록
 	////////////////통신과 관련한 전역변수 추가  끝  //////////////
-	
 	/* 오른편 패널 구성 */
 	JPanel 	jp_second	  	= new JPanel();						// JPanel 2
 	JPanel 	jp_second_south = new JPanel();						// 아래로 붙을 JPanel 2  
@@ -53,22 +56,26 @@ public class TalkClient extends JFrame implements ActionListener {
 	
 	//배경 이미지에 사용될 객체 선언-JTextArea에 페인팅
 	Image back = null;
+	
 	/*****************************************
 	 * 					생성자				 *
 	 *****************************************/
 	public TalkClient() {
+		initDisplay();
 		jtf_msg.addActionListener(this);
 	}
 	public TalkClient(Login lg) {
 		jbtn_change.addActionListener(this);
 		jbtn_exit.addActionListener(this);
 	}
-	/* 화면 그리기 */
+	
+	/*****************************************
+	 * 			       화면그리기				 *
+	 *****************************************/
 	public void initDisplay() {
 		//사용자의 닉네임 받기
 		nickName = JOptionPane.showInputDialog("닉네임을 입력하세요.");			// 최초 닉네임입력칸
 		this.setLayout(new GridLayout(1,10));								// 
-		
 		jp_second.setLayout(new BorderLayout());							// 
 		jp_second.add("Center",jsp);										// 채팅창 관련인듯?
 		jp_second_south.setLayout(new GridLayout(2,2));						// 아래 버튼 4개 x,y축 위치지정인듯?
@@ -84,7 +91,7 @@ public class TalkClient extends JFrame implements ActionListener {
 		jp_first_south.add("East",jbtn_send);								// '전송'버튼은 동쪽
 		back = getToolkit().getImage("src\\chat\\step1\\accountmain.png");	//
 		
-		jta_display = new JTextArea() {										// 
+		jta_display = new JTextArea() {										// 대충 배경관련된거
 			private static final long serialVersionUID = 1L;
 			public void paint(Graphics g) {
 				g.drawImage(back, 0, 0, this);
@@ -106,6 +113,8 @@ public class TalkClient extends JFrame implements ActionListener {
 		this.setSize(800, 550);
 		this.setVisible(true);
 	}
+	
+	
 	public static void main(String args[]) {
 		JFrame.setDefaultLookAndFeelDecorated(true);
 		TalkClient tc = new TalkClient();
@@ -116,7 +125,7 @@ public class TalkClient extends JFrame implements ActionListener {
 	public void init() {
 		try {
 			//서버측의 ip주소 작성하기
-			socket = new Socket("127.0.0.1",1521);
+			socket = new Socket("127.0.0.1",3002);
 			oos = new ObjectOutputStream(socket.getOutputStream());
 			ois = new ObjectInputStream(socket.getInputStream());
 			//initDisplay에서 닉네임이 결정된 후 init메소드가 호출되므로

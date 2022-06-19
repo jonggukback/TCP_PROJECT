@@ -50,7 +50,7 @@ public class MemberDAO {
 			
 			System.out.println("회원가입 성공");
 			result = 1;
-		} catch (Exception e) {
+		} catch (Exception e) {// 모든 오류를 잡아준다. 
 			e.printStackTrace();
 			System.out.println("회원가입 실패");
 			result = -1;
