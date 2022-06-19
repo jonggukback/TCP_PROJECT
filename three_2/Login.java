@@ -16,9 +16,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 public class Login extends JFrame implements ActionListener{
-	/****************************************
-	 * 				   선언부					*	
-	 ****************************************/
+//	String nickName	=""; // 이거 왜있는거지?
     String imgPath	="D:\\java_study\\workspace_java\\kh_javaAC\\Messenger_jababaFamily\\src\\img\\";
     JLabel jlb_id 	= new JLabel("아이디");
     JLabel jlb_pw 	= new JLabel("패스워드");
@@ -33,17 +31,16 @@ public class Login extends JFrame implements ActionListener{
     		new ImageIcon(imgPath+"회원가입2.png"));
     // JPanel에 쓰일 이미지아이콘
     ImageIcon ig = new ImageIcon(imgPath+"main2.png");
-    String user_ID = null;
-    
-    
-	/****************************************
-	 * 				   생성자					*	
-	 ****************************************/
+    /////////////////////////////////////////////////////
+    /* 생성자 */
+    /////////////////////////////////////////////////////
     public Login(){
         initDisplay();
     }
-    /* 배경이미지 */ 
-    // JPanal 오버라이드 
+    /////////////////////////////////////////////////////
+    /* jpanal 오버라이드 */
+    /////////////////////////////////////////////////////
+    /* 배경이미지 */
     class mypanal extends JPanel {
         public void paintComponent(Graphics g) {
             g.drawImage(ig.getImage(), 0, 0, null);
@@ -51,10 +48,9 @@ public class Login extends JFrame implements ActionListener{
             super.paintComponents(g);
         }
     }
-    
-	/****************************************
-	 * 				   화면처리				*	
-	 ****************************************/
+    /////////////////////////////////////////////////////
+    /* 화면처리 */
+    /////////////////////////////////////////////////////
     public void initDisplay() {
         setContentPane(new mypanal());
         /* 버튼과 텍스트필드 구성 */
@@ -115,14 +111,15 @@ public class Login extends JFrame implements ActionListener{
 		// 로그인 버튼
 		else if(obj == jbtn_login) {
 			MemberDAO mDao = new MemberDAO();
-			user_ID = jtf_id.getText();
+			String user_ID = jtf_id.getText();
 			String user_pw = jpf_pw.getText();
         	int result = mDao.signIn(user_ID,user_pw);
         	if(result == 1) {
         		// 로그인성공
         		this.dispose();
-        		new And();
-        		System.out.println("아이디 : " + user_ID);
+        		TalkClient tc = new TalkClient();
+        		tc.initDisplay();
+        		tc.init();
         	}
         	else if(result == 0) {
         		//아이디와 비밀번호가 일치하지 않습니다.

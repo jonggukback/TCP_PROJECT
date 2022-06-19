@@ -8,9 +8,6 @@ import java.awt.Image;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.net.Socket;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -22,13 +19,11 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-public class TalkClient extends JFrame implements ActionListener {
-	////////////////통신과 관련한 전역변수 추가 시작//////////////
-	Socket 				socket 		= null;
-	ObjectOutputStream 	oos 		= null;	//말 하고 싶을 때
-	ObjectInputStream 	ois			= null;	//듣기 할 때
+public class ChatView extends JFrame implements ActionListener {
+	/*****************************************
+	 * 					선언부				 *
+	 *****************************************/
 	String 				nickName	= null;	//닉네임 등록
-	////////////////통신과 관련한 전역변수 추가  끝  //////////////
 	
 	/* 오른편 패널 구성 */
 	JPanel 	jp_second	  	= new JPanel();						// JPanel 2
@@ -53,22 +48,26 @@ public class TalkClient extends JFrame implements ActionListener {
 	
 	//배경 이미지에 사용될 객체 선언-JTextArea에 페인팅
 	Image back = null;
+	
 	/*****************************************
 	 * 					생성자				 *
 	 *****************************************/
-	public TalkClient() {
+	public ChatView() {
+		initDisplay();
 		jtf_msg.addActionListener(this);
 	}
-	public TalkClient(Login lg) {
+	public ChatView(Login lg) {
 		jbtn_change.addActionListener(this);
 		jbtn_exit.addActionListener(this);
 	}
-	/* 화면 그리기 */
+	
+	/*****************************************
+	 * 			       화면그리기				 *
+	 *****************************************/
 	public void initDisplay() {
 		//사용자의 닉네임 받기
 		nickName = JOptionPane.showInputDialog("닉네임을 입력하세요.");			// 최초 닉네임입력칸
 		this.setLayout(new GridLayout(1,10));								// 
-		
 		jp_second.setLayout(new BorderLayout());							// 
 		jp_second.add("Center",jsp);										// 채팅창 관련인듯?
 		jp_second_south.setLayout(new GridLayout(2,2));						// 아래 버튼 4개 x,y축 위치지정인듯?
@@ -106,70 +105,18 @@ public class TalkClient extends JFrame implements ActionListener {
 		this.setSize(800, 550);
 		this.setVisible(true);
 	}
+	
+	/* 단위테스트용 - 나중에 지우기! */
 	public static void main(String args[]) {
 		JFrame.setDefaultLookAndFeelDecorated(true);
-		TalkClient tc = new TalkClient();
-		tc.initDisplay();
-		tc.init();
-	}
-	//소켓 관련 초기화
-	public void init() {
-		try {
-			//서버측의 ip주소 작성하기
-			socket = new Socket("127.0.0.1",1521);
-			oos = new ObjectOutputStream(socket.getOutputStream());
-			ois = new ObjectInputStream(socket.getInputStream());
-			//initDisplay에서 닉네임이 결정된 후 init메소드가 호출되므로
-			//서버에게 내가 입장한 사실을 알린다.(말하기)
-			oos.writeObject(100+"#"+nickName);
-			//서버에 말을 한 후 들을 준비를 한다.
-			TalkClientThread tct = new TalkClientThread(this);
-			tct.start();
-		} catch (Exception e) {
-			//예외가 발생했을 때 직접적인 원인되는 클래스명 출력하기
-			System.out.println(e.toString());
-		}
+		ChatView cv = new ChatView();
+		cv.initDisplay();
+		
 	}
 	@Override
-	public void actionPerformed(ActionEvent ae) {
-		Object obj = ae.getSource();
-		String msg = jtf_msg.getText();
-		if(jtf_msg==obj) {
-			try {
-				oos.writeObject(201
-						   +"#"+nickName
-						   +"#"+msg);
-				jtf_msg.setText("");
-			} catch (Exception e) {
-				// TODO: handle exception
-			}
-		}
-		else if(jbtn_exit==obj) {
-			try {
-				oos.writeObject(500+"#"+this.nickName);
-				//자바가상머신과 연결고리 끊기
-				System.exit(0);
-			} catch (Exception e) {
-				// TODO: handle exception
-			}
-		}
-		else if(jbtn_change == obj) {
-			String afterName = JOptionPane.showInputDialog("변경할 대화명을 입력하세요.");
-			if(afterName == null || afterName.trim().length()<1) {
-				JOptionPane.showMessageDialog(this
-				, "변경할 대화명을 입력하세요"
-				, "INFO", JOptionPane.INFORMATION_MESSAGE);
-				return;
-			}
-			try {
-				oos.writeObject(202
-						   +"#"+nickName
-						   +"#"+afterName
-						   +"#"+nickName+"의 대화명이 "+afterName+"으로 변경되었습니다.");
-			} catch (Exception e) {
-				// TODO: handle exception
-			}
-		}
-	}//////////////////////end of actionPerformed
-}
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
 
+}
