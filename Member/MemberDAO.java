@@ -6,7 +6,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import Member.DBConnectionMgr;
-
+/************************************************************
+ * 수정해야 할 부분
+ * id를 로그인 view에서 받아오기
+ * 
+ * @author Yuri,Yihyun
+*************************************************************/
 public class MemberDAO {
 	// 선언부
 	/////////////////////////// DB 연동 ///////////////////////////
@@ -190,11 +195,11 @@ public class MemberDAO {
 	 *UPDATE MEMBER SET NAME = '유리123', PW = '1234' WHERE ID = 'yuri'
 	 ******************************************************************/
 	// 회원정보 수정 메소드
-	public int editMember(MemberVO mVO) {
+	public int editMember(String nickname, String pw, String id) {
 		System.out.println("회원정보 수정 메소드 호출 성공");
 
 		int result = 0;
-
+		
 		StringBuilder sql = new StringBuilder();
 		sql.append("UPDATE MEMBER         		  	");
 		sql.append("   SET NICKNAME = ?, PW = ?     ");
@@ -208,9 +213,9 @@ public class MemberDAO {
 
 			int i = 1;
 
-			pstmt.setString(i++, mVO.getNickName());
-			pstmt.setString(i++, mVO.getPw());
-			pstmt.setString(i++, mVO.getId());
+			pstmt.setString(i++, nickname);
+			pstmt.setString(i++, pw);
+			pstmt.setString(i++, id);
 
 			result = pstmt.executeUpdate();
 			con.commit();
