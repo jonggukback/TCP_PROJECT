@@ -1,4 +1,4 @@
-package chatClient;
+package chatClient.View;
 
 import java.awt.Font;
 import java.awt.Graphics;
@@ -15,6 +15,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+
+import chatClient.Controller.Controller;
+import chatClient.VO.MemberVO;
+import chatServer.Protocol;
 // LoginView
 public class LoginView extends JFrame implements ActionListener {
 	/**
@@ -22,19 +26,20 @@ public class LoginView extends JFrame implements ActionListener {
 	 */
 	private static final long serialVersionUID = 1L;
 	//선언부
-	String imgPath = "C:\\Users\\MJ\\Desktop\\이미지\\";
+	String imgPath = "C:/Users/User/Desktop/TCP_PROJECT/tcp_project/img/";
 	JLabel jlb_id = new JLabel("아이디");
 	JLabel jlb_pw = new JLabel("패스워드");
 	Font jl_font = new Font("맑은고딕체", Font.BOLD, 14);
 	JTextField jtf_id = new JTextField("");
 	JPasswordField jpf_pw = new JPasswordField("");
 	JButton jbtn_login = new JButton(new ImageIcon(imgPath + "로그인2.png"));
-	JButton jbtn_join = new JButton(new ImageIcon(imgPath + "회원가입2.png"));
+	JButton jbtn_join = new JButton(new ImageIcon(imgPath + "가입하기.png"));
 	// JPanel에 쓰일 이미지아이콘
 	ImageIcon ig = new ImageIcon(imgPath + "둥이.png");
 	// 컨트롤러 싱긍톤으로 생성
 	
 	Controller controller = Controller.getInstance();
+	
 	public LoginView() {
 		initDisplay();
 	}
@@ -109,19 +114,16 @@ public class LoginView extends JFrame implements ActionListener {
 	}
 
 	
+	@SuppressWarnings("deprecation")
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// JTextField 엔터 이벤트 처리
 		if (jtf_id == e.getSource() || jpf_pw == e.getSource() || jbtn_login == e.getSource()) {
 			if (!(jtf_id.getText().equals("")) && !(jpf_pw.getText().equals(""))) {
-				System.out.println("로그인 호출 성공");
-				MemberVO pmVO = new MemberVO();
-				pmVO.setCommand("login");
-				pmVO.setMem_id(getId());
-				pmVO.setMem_pw(getPw());
-				MemberVO rsVO = new MemberVO(); // 리턴받을 rsVO생성
-				rsVO = controller.action(pmVO); // return값 rsVO
-				String nickName = rsVO.getMem_name();
+
+				MemberVO pmVO = new MemberVO(Protocol.LOGIN, getId(), getPw());
+				pmVO = controller.action(pmVO); // return값 rsVO
+				String nickName = pmVO.getMem_name();
 				System.out.println("result : " + nickName);
 					if (nickName.equals("0")) {
 						errorMsg("비밀번호가 틀렸습니다!");
@@ -130,9 +132,8 @@ public class LoginView extends JFrame implements ActionListener {
 						errorMsg("존재하지 않는 아이디입니다.");
 						return;
 					}else {
-						TalkClient tc = new TalkClient(nickName);
-						new ChatView(tc);
-						tc.init();
+						new ChatView(nickName);
+						controller.init(nickName);
 						dispose();
 					}
 			} else if (jtf_id.getText().equals("")) {
@@ -155,6 +156,8 @@ public class LoginView extends JFrame implements ActionListener {
 	public String getId() {
 		return jtf_id.getText();
 	}
+	
+	@SuppressWarnings("deprecation")
 	public String getPw() {
 		return jpf_pw.getText();
 	}

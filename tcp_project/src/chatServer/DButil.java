@@ -15,9 +15,9 @@ import java.sql.SQLException;
 // DB연동 전담하는 클래스 
 public class DButil {
 	private static Connection con = null;
-	private static final String url = "jdbc:oracle:thin:@localhost:1522/ORCL11";
-	private static final String user = "MJ";
-	private static final String pwd = "111111";
+	private static final String url = "jdbc:oracle:thin:@192.168.123.100:1521/ORCL11";
+	private static final String user = "comedown";
+	private static final String pwd = "abcd1234";
 	private static final String driver = "oracle.jdbc.driver.OracleDriver";
 
 	public static Connection getConnection() {

@@ -22,7 +22,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-import chatClient.MemberVO;
+import chatClient.VO.MemberVO;
 
 public class MemSearchView extends JFrame implements ActionListener,FocusListener,ItemListener{
 	/**

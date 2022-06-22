@@ -11,5 +11,10 @@ public class Protocol {
 	public static final int WHISHER 		= 209;  
 	public static final int ROOM_OUT 		= 500;
 	public static final int EXPULSION   	= 501;
+	
+	
+	public static final int LOGIN   	= 600;
+	public static final int IDCHECK   	= 601;
+	public static final int SIGNUP   	= 602;
 
 }

@@ -14,6 +14,8 @@ import java.util.Map;
 import java.util.Vector;
 import javax.swing.JOptionPane;
 
+import chatClient.VO.MsgVO;
+
 /*******************************************************************************************
 *							SocketThread의 세 가지 역할 
 * 			1. 사용자 접속 받는 역할< 특정 port 열고 accept() 대기중 >

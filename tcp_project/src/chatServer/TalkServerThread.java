@@ -8,6 +8,8 @@ import java.net.Socket;
 import java.util.StringTokenizer;
 import java.util.Vector;
 
+import chatClient.VO.MsgVO;
+
 
 public class TalkServerThread extends Thread {
 	SocketThread   		  sk	 			= null;

@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import chatClient.MemberVO;
+import chatClient.VO.MemberVO;
 
 // 서버에서 쓸 dao클래스
 public class ChatDao {
@@ -77,7 +77,7 @@ public class ChatDao {
 	public List<MemberVO> memSearch(String search, String input) {
 		List<MemberVO> list = new ArrayList<>();
 		StringBuilder sql = new StringBuilder();
-		sql.append(" SELECT ID, PW, NAME, PHONE FROM MEMBER WHERE");
+		sql.append(" SELECT ID, PWD, NAME FROM MEMBER WHERE");
 		
 		// PreparedStatement는 필드 바인딩이 되지 않는다. 즉 컬럼명은 '?' 처리할 수 없다.
 		// 그러므로 컬러명 동적처리를 위해 밑과 같이 처리
@@ -85,9 +85,10 @@ public class ChatDao {
 			sql.append(" ID LIKE '%' || ? || '%'");
 		} else if (search.equals("이름")) {
 			sql.append(" NAME LIKE '%' || ? || '%'");
-		} else if (search.equals("전화번호")) {
-			sql.append(" PHONE LIKE '010-'|| ? || '%'");
-		}
+		} 
+//		else if (search.equals("전화번호")) {
+//			sql.append(" PHONE LIKE '010-'|| ? || '%'");
+//		}
        
         con = DButil.getConnection();
 		try {

@@ -1,4 +1,4 @@
-package chatClient;
+package chatClient.View;
 
 import java.awt.Font;
 import java.awt.Graphics;
@@ -16,10 +16,15 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import chatClient.Controller.Controller;
+import chatClient.VO.MemberVO;
+import chatServer.Protocol;
+
 public class SignUpView extends JFrame implements ActionListener {
+
 	// 선언부
 	String nickName = ""; //
-	String imgPath = "C:/Users/MJ/Desktop/이미지"; // 이미지 경로를 문자열로..지정??
+	String imgPath = "C:/Users/User/Desktop/TCP_PROJECT/tcp_project/img/"; // 이미지 경로를 문자열로..지정??
 	JLabel jlb_id = new JLabel("아이디"); // "[입력]" : 문자열을 화면에 그림
 	JLabel jlb_pw = new JLabel("비밀번호"); // "[입력]" : 문자열을 화면에 그림
 	JLabel jlb_repw = new JLabel("비밀번호 재확인"); // "[입력]" : 문자열을 화면에 그림
@@ -48,6 +53,7 @@ public class SignUpView extends JFrame implements ActionListener {
 
 	/* 배경이미지 */
 	class mypana2 extends JPanel {
+
 		public void paintComponent(Graphics g) {
 			g.drawImage(ig.getImage(), 0, 0, null);
 			setOpaque(false);
@@ -118,12 +124,12 @@ public class SignUpView extends JFrame implements ActionListener {
 		if (jbtn_idcheck == e.getSource()) {
 			System.out.println("중복검사 버튼 눌러짐"); // 단위테스트용
 			MemberVO pmVO = new MemberVO();
-			pmVO.setCommand("idcheck");
+			pmVO.setCommand(Protocol.IDCHECK);
 			pmVO.setMem_id(getId());
-			MemberVO rsVO = new MemberVO();
-			rsVO = controller.action(pmVO);
-			String result = String.valueOf(rsVO.getResult());
-			if (result.equals("-1")) {  // -1이면 사용가능
+			pmVO = controller.action(pmVO);
+			int result = pmVO.getResult();
+			System.out.println("result 값은 : "+result);
+			if (result == -1 ) {  // -1이면 사용가능
 				successMsg("입력한 아이디는 사용할 수 있습니다.");
 				jtf_id.setEditable(false); // 사용자가 아이디 다른것 입력하고 싶을 수 있으므로 x
 				jbtn_idcheck.setEnabled(false);
@@ -139,7 +145,7 @@ public class SignUpView extends JFrame implements ActionListener {
 		if (jbtn_ok == e.getSource()) {
 			System.out.println("회원가입 버튼 눌러짐"); // 단위테스트용	
 			MemberVO pmVO = new MemberVO();
-			pmVO.setCommand("signup");
+			pmVO.setCommand(Protocol.SIGNUP);
 			pmVO.setMem_id(getId());
 			pmVO.setMem_pw(getPw());
 			pmVO.setMem_name(getName());

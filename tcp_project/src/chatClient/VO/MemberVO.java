@@ -1,4 +1,4 @@
-package chatClient;
+package chatClient.VO;
 
 import java.io.Serializable;
 
@@ -7,8 +7,18 @@ public class MemberVO implements Serializable{
 	private String mem_pw       = null;
 	private String mem_name     = null;
 	private String mem_phone	= null;
-	private String command 	    = null;	
-	private int	   result		= 0;
+	private int command 	    = 0;	
+	private int	result			= 0;
+	
+	public MemberVO() {
+		
+	}
+	public MemberVO(int command, String mem_id, String mem_pw) {
+		this.command = command;
+		this.mem_id = mem_id;
+		this.mem_pw = mem_pw;
+	}
+	
 	public String getMem_id() {
 		return mem_id;
 	}
@@ -27,10 +37,10 @@ public class MemberVO implements Serializable{
 	public void setMem_name(String mem_name) {
 		this.mem_name = mem_name;
 	}
-	public String getCommand() {
+	public int getCommand() {
 		return command;
 	}
-	public void setCommand(String command) {
+	public void setCommand(int command) {
 		this.command = command;
 	}
 	public int getResult() {
