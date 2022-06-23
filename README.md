@@ -20,4 +20,4 @@ UI 그리기
 ConfirmView_01 & PFchangeView_01 - 회원확인 창 & 회원정보수정 창
 해야할 것 : DB연동 - Dao / 액션퍼폼 조건문 개선 
 / 로그인할 때 입력한 아이디 값을 어떻게 초기화 없이 회원정보창으로 넘겨받나????
-
+/ ConfirmView 필요성 의문 & 논의 필요(PFchangeView에 합치면 UI 깔끔 but 코드가 길어짐)
