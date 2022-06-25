@@ -60,7 +60,7 @@ public class OneToOne extends JFrame implements ActionListener {
 		jp_first.add("Center", jsp_display);
 		jp_first.add("South", jp_first_south);
 		jta_display.setLineWrap(true); //자동 줄바꾸기 사용
-		jta_display.setOpaque(false); //Opaque값을 true로 미리 설정해 주어야 배경색이 적용된다
+		jta_display.setOpaque(true); //Opaque값을 true로 미리 설정해 주어야 배경색이 적용된다
 		jta_display.setFont(font); // 채팅창 폰트
 		this.add(jp_first);	
 		this.setSize(350,600);
