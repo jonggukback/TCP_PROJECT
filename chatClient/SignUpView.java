@@ -1,5 +1,6 @@
 package chatClient;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
@@ -34,6 +35,10 @@ public class SignUpView extends JFrame implements ActionListener {
 
 	JButton jbtn_idcheck = new JButton(new ImageIcon(imgPath + "/버튼.png")); // 버튼
 	JButton jbtn_ok = new JButton(new ImageIcon(imgPath + "/가입하기.png"));
+	
+	JLabel jlb_pcCheck	= new JLabel("1:1 대화");					// 1:1 대화 라벨 private chat check 
+	JButton 		jbtn_pcon 		= new JButton("수락"); 								// Private chat on  button	1:1대화 수락
+	JButton 		jbtn_pcoff 		= new JButton("거절");								// Private chat off button	1:1대화 거절
 
 	// JPanel에 쓰일 이미지아이콘
 	ImageIcon ig = new ImageIcon(imgPath + "/main4.png");
@@ -111,6 +116,21 @@ public class SignUpView extends JFrame implements ActionListener {
 		// 버튼
 		jbtn_idcheck.setBounds(295, 135, 25, 25);
 		this.add(jbtn_idcheck);
+		
+        ////////////////////////// 1:1대화 ///////////////////////////////
+        // 1:1대화 글씨
+        jlb_pcCheck.setBounds(40, 220, 130, 40);		// 위치지정
+        jlb_pcCheck.setFont(jl_font);					// 폰트지정
+        this.add(jlb_pcCheck);							// 붙이기
+        
+        // 수락버튼
+        jbtn_pcon.setBounds(140, 220, 100, 40);			// on버튼
+        jbtn_pcon.setBackground(new Color(153,0,133));	// 색지정
+        this.add(jbtn_pcon);							// 붙이기
+        
+        // 거절버튼
+        jbtn_pcoff.setBounds(240, 220, 100, 40);		// off버튼
+        this.add(jbtn_pcoff);							// 붙이기
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {

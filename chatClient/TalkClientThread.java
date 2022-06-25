@@ -1,10 +1,6 @@
 package chatClient;
 
-import java.awt.Color;
-import java.util.StringTokenizer;
 import java.util.Vector;
-
-import javax.swing.JOptionPane;
 
 import chatServer.MsgVO;
 import chatServer.Protocol;
