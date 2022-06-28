@@ -65,7 +65,7 @@ public class LoginView extends JFrame implements ActionListener {
 		jbtn_login.addActionListener(this);
 		jtf_id.addActionListener(this);
 		jpf_pw.addActionListener(this);
-
+		
 		this.setLayout(null);
 		this.setTitle("꽉자바 ver.1");
 		this.setSize(350, 600);
