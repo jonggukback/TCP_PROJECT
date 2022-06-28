@@ -25,17 +25,11 @@ import javax.swing.table.DefaultTableModel;
 
 public class ChatView extends JFrame implements ActionListener {
 	
-	JTextField jtf_name = new JTextField("대화명을 입력하세요",20);
-	JButton jbtn_search = new JButton("찾기");
-	String zdos[] = {"닉네임"};
-	JComboBox jcb = new JComboBox(zdos);
-
 	JPanel jp_first 			=	new JPanel();
 	JPanel jp_first_south 		= 	new JPanel();
 	JPanel jp_first_east		= 	new JPanel();
 	
 	JPanel jp_second 			= 	new JPanel();
-	JPanel jp_second_north      =   new JPanel();
 	JPanel jp_second_south 		= 	new JPanel();
 	
 	JButton jbtn_whisper 		= 	new JButton("1:1");
@@ -80,10 +74,6 @@ public class ChatView extends JFrame implements ActionListener {
 				paintComponent(g);
 			}
 		};
-		jp_second_north.setLayout(new BorderLayout());
-		jp_second_north.add("West",jcb);
-		jp_second_north.add("Center",jtf_name);
-		jp_second_north.add("East",jbtn_search);
 		
 		jp_second_south.setLayout(new GridLayout(1,3));
 		jp_second_south.add(jbtn_whisper); // 1대1 대화
@@ -103,7 +93,6 @@ public class ChatView extends JFrame implements ActionListener {
 		jsp_display = new JScrollPane(jta_display);	
 		jp_first.add("Center", jsp_display);
 		jp_first.add("South", jp_first_south);
-		jp_second.add("North", jp_second_north);
 		jp_second.add("Center", jsp);
 		jp_second.add("South", jp_second_south);
 		

@@ -20,7 +20,7 @@ import javax.swing.JTextField;
 public class SignUpView extends JFrame implements ActionListener {
 	// 선언부
 	String nickName = ""; //
-	String imgPath = "C:/Users/MJ/Desktop/이미지"; // 이미지 경로를 문자열로..지정??
+	String imgPath = "C:\\java\\workspace_java\\이미지\\"; // 이미지 경로를 문자열로..지정??
 	JLabel jlb_id = new JLabel("아이디"); // "[입력]" : 문자열을 화면에 그림
 	JLabel jlb_pw = new JLabel("비밀번호"); // "[입력]" : 문자열을 화면에 그림
 	JLabel jlb_repw = new JLabel("비밀번호 재확인"); // "[입력]" : 문자열을 화면에 그림

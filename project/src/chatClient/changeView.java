@@ -39,13 +39,13 @@ public class changeView extends JFrame implements ActionListener {
 	
 	// J버튼
 	// 이미지 경로를 확인 해주세요.
-	String imgPath	= "D:\\java_study\\workspace_java\\kh_javaAC\\Messenger_jababaFamily\\src\\img\\";
+	String imgPath	= "C:\\git\\TCP_PROJECT\\이미지";
 	JButton 		jbtn_pcon 		= new JButton("수락"); 								// Private chat on  button	1:1대화 수락
 	JButton 		jbtn_pcoff 		= new JButton("거절");								// Private chat off button	1:1대화 거절
 	JButton 		jbtn_update 	= new JButton(new ImageIcon(imgPath+"변경하기.png"));	// 업데이트 버튼
 	JButton 		jbtn_del 		= new JButton("아이디 삭제");							// 아이디 삭제 버튼
-	JButton 		jbtn_pwok 		= new JButton(new ImageIcon(imgPath+"버튼.png")); 	// 비번 체크 버튼	
-	JButton 		jbtn_nickok 	= new JButton(new ImageIcon(imgPath+"버튼.png")); 	// 닉네임 체크 버튼
+	JButton 		jbtn_pwok 		= new JButton(new ImageIcon(imgPath+"잠금.png")); 	// 비번 체크 버튼	
+	JButton 		jbtn_nickok 	= new JButton(new ImageIcon(imgPath+"잠금.png")); 	// 닉네임 체크 버튼
 	// 폰트설정
 	Font			jl_font 		= new Font("맑은고딕체", Font.BOLD, 17);				// 폰트를 파라미터 값(글씨체, 폰트굵기, 크기)으로  생성한다.
 	
