@@ -14,7 +14,6 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 import chatClient.Controller.Controller;
-import chatClient.Controller.SocketThread;
 import chatClient.VO.MsgVO;
 import chatServer.Protocol;
 
@@ -45,14 +44,11 @@ public class ChatView extends JFrame implements ActionListener {
 	Image back = null;
 	public String nickName = null;
 	Controller controller = Controller.getInstance();
-	SocketThread socketthread;
 
 
 	public ChatView(String nickName) {
 		this.nickName = nickName;
 		initDisplay();
-		socketthread = new SocketThread(this);
-		socketthread.start();
 	}
 
 	public void initDisplay() {

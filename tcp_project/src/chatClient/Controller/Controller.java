@@ -33,25 +33,25 @@ public class Controller {
 		String result = null;
 
 		switch (command) {
-			case Protocol.LOGIN: {
-				result = logindao.login(pmVO);
-				pmVO.setMem_name(result);
-			}
-				break;
-			case Protocol.IDCHECK: { 
-				result = logindao.idCheck(pmVO);
-				pmVO.setResult(Integer.valueOf(result));
-			}
-				break;
-			case Protocol.SIGNUP: { 
-				result = logindao.signUp(pmVO);
-				pmVO.setResult(Integer.valueOf(result));
-			}
+		case Protocol.LOGIN: {
+			result = logindao.login(pmVO);
+			pmVO.setMem_name(result);
+		}
+			break;
+		case Protocol.IDCHECK: {
+			result = logindao.idCheck(pmVO);
+			pmVO.setResult(Integer.valueOf(result));
+		}
+			break;
+		case Protocol.SIGNUP: {
+			result = logindao.signUp(pmVO);
+			pmVO.setResult(Integer.valueOf(result));
+		}
 		}
 		return pmVO;
 	}
 
-	public void init(String nickName) { 
+	public void init(String nickName) {
 		try {
 			// 서버측의 ip주소 작성하기
 			socket = new Socket("127.0.0.1", 3002);
@@ -87,6 +87,11 @@ public class Controller {
 			case Protocol.NICKNAME_CHANGE: {
 				mVO.setMsg(nickName + " 님의 대화명이 " + afterName + "으로 변경되었습니다.");
 				oos.writeObject(mVO);
+			}
+				break;
+			case Protocol.IMAGE: {
+				oos.writeObject(mVO);
+				oos.flush();
 			}
 				break;
 			}

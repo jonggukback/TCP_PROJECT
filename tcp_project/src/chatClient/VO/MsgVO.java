@@ -2,6 +2,8 @@ package chatClient.VO;
 
 import java.io.Serializable;
 
+import javax.swing.ImageIcon;
+
 public class MsgVO implements Serializable {
 	/**
 	 * 
@@ -11,6 +13,8 @@ public class MsgVO implements Serializable {
 	private String nickname;
 	private String after_nickname;
 	private String msg;
+	private ImageIcon img;
+	private String fileName;
 	
 	public int getProtocol() {
 		return protocol;
@@ -35,6 +39,18 @@ public class MsgVO implements Serializable {
 	}
 	public void setMsg(String msg) {
 		this.msg = msg;
+	}
+	public ImageIcon getImg() {
+		return img;
+	}
+	public void setImg(ImageIcon img) {
+		this.img = img;
+	}
+	public String getFileName() {
+		return fileName;
+	}
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
 	}
 	
 	

@@ -10,37 +10,36 @@ import java.util.Vector;
 
 import chatClient.VO.MsgVO;
 
-
 public class TalkServerThread extends Thread {
-	SocketThread   		  sk	 			= null;
-	TalkServerView        view          	= null;
-	Socket 				  client 			= null;
-	ObjectOutputStream    oos   			= null; 
-	ObjectInputStream     ois    			= null; 
-	String 			      nickName 			= null; // 현재 서버에 접속한 클라이언트 스레드 닉네임 저장
-	Vector<Object>		  oneRow			= null;
-	MsgVO				  mvo				= null; // 입장에 대한 msg 가지고 있음
+	SocketThread sk = null;
+	TalkServerView view = null;
+	Socket client = null;
+	ObjectOutputStream oos = null;
+	ObjectInputStream ois = null;
+	String nickName = null; // 현재 서버에 접속한 클라이언트 스레드 닉네임 저장
+	Vector<Object> oneRow = null;
+	MsgVO mvo = null; // 입장에 대한 msg 가지고 있음
+
 	public TalkServerThread(SocketThread sk) {
-		this.sk 	= sk;		 // 소켓쓰레드 주소값
+		this.sk = sk; // 소켓쓰레드 주소값
 		this.client = sk.socket; // 방금 접속한 클라이언트의 정보(ip,port)
-		this.view   = sk.view;
+		this.view = sk.view;
 		try {
 			oos = new ObjectOutputStream(client.getOutputStream()); // client소켓으로부터 아웃풋스트림 얻음
-			ois = new ObjectInputStream(client.getInputStream());   // client소켓으로부터 인풋스트림 얻음
-			mvo = (MsgVO) ois.readObject(); 				// 사용자 nickName(JoptionPane) 읽어들임
-			nickName = mvo.getNickname(); 
+			ois = new ObjectInputStream(client.getInputStream()); // client소켓으로부터 인풋스트림 얻음
+			mvo = (MsgVO) ois.readObject(); // 사용자 nickName(JoptionPane) 읽어들임
+			nickName = mvo.getNickname();
 			String days = sk.getDate();
 			String hours = sk.getTime();
-			view.jta_log.append("[" + days + hours + "]" 
-								    +nickName + "님이 입장하였습니다.\n"); // 서버에 찍음
+			view.jta_log.append("[" + days + hours + "]" + nickName + "님이 입장하였습니다.\n"); // 서버에 찍음
 			for (TalkServerThread tst : sk.globalList) {
 				this.send(tst.mvo); // mvo에 프로토콜 100과 nickname 담겨있다
-			}						// 방금 접속한 사용자에게 이전 접속자들 접속했다고 화면에 뛰운다
+			} // 방금 접속한 사용자에게 이전 접속자들 접속했다고 화면에 뛰운다
 
 			// 현재 접속한 클라이언트의 닉네임, ip, 접속시간을 현재접속인원 창에 추가한다
 			InetAddress ip = client.getInetAddress();
-			String time    = sk.getDate() + sk.getTime();
-			oneRow  = new Vector<>();
+			String time = sk.getDate() + sk.getTime();
+			oneRow = new Vector<>();
 			oneRow.add(nickName);
 			oneRow.add(ip);
 			oneRow.add(time);
@@ -52,7 +51,7 @@ public class TalkServerThread extends Thread {
 			System.out.println(e.toString());
 		}
 	}
-		
+
 	// 현재 입장해 있는 친구들 모두에게 메시지 전송하기
 	public void broadCasting(MsgVO mvo) {
 		for (TalkServerThread tst : sk.globalList) {
@@ -75,23 +74,30 @@ public class TalkServerThread extends Thread {
 		boolean isStop = false;
 		int protocol = 0;
 		try {
-			run_start: while (!isStop) { 
+			run_start: while (!isStop) {
 				mvo = (MsgVO) ois.readObject(); // 사용자에게 입력 받을 때 까지 기다린다.
 				String msg = mvo.getMsg();
-				if(msg != null) {
-					view.jta_log.append("[" + this.nickName +"] " + msg + "\n");
+				if (msg != null) {
+					view.jta_log.append("[" + this.nickName + "] " + msg + "\n");
 					view.jta_log.setCaretPosition(view.jta_log.getDocument().getLength());
-				}				
+				}
 				protocol = mvo.getProtocol();// 100 | 200 | 300 | 400 | 500
-					
+
 				if (mvo.getMsg() != null) {
 				}
 				// 개인 대화 전달
 				switch (protocol) {
 				case Protocol.MESSAGE: {
-					
+
 				}
 					break;
+
+				case Protocol.IMAGE: {
+					view.jta_log.append("서버에서 이미지 메시지 수신, 다시 송신합니다 \n");
+					broadCasting(mvo);
+				}
+					break;
+
 				// 단체 대화 전달
 				case Protocol.GROUP_MESSAGE: { // 채팅보냈을 때 (DB에 대화내용 저장)
 					String message = mvo.getMsg();
@@ -110,13 +116,13 @@ public class TalkServerThread extends Thread {
 				}
 					break;
 				// 클라이언트 퇴장 시
-				case Protocol.ROOM_OUT: { 
+				case Protocol.ROOM_OUT: {
 					sk.globalList.remove(this); // 클라이언트 나갔으므로 통신 쓰레드 지움
 					broadCasting(mvo);
-					sk. showNumber_Conpeople();
-					sk.userCount(); // 접속인원 JTexField 초기화 
+					sk.showNumber_Conpeople();
+					sk.userCount(); // 접속인원 JTexField 초기화
 				}
-				break run_start; // 클라이언트 퇴장시 반복문 빠져나가면서 쓰레드 종료
+					break run_start; // 클라이언트 퇴장시 반복문 빠져나가면서 쓰레드 종료
 				}// end of switch
 			} // end of while
 		} catch (Exception e) {

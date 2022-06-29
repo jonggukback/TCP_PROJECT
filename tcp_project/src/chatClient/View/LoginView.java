@@ -132,7 +132,7 @@ public class LoginView extends JFrame implements ActionListener {
 						errorMsg("존재하지 않는 아이디입니다.");
 						return;
 					}else {
-						new ChatView(nickName);
+						new ChatView2(nickName);
 						controller.init(nickName);
 						dispose();
 					}
