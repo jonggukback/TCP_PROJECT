@@ -24,6 +24,7 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
 public class ChatView extends JFrame implements ActionListener {
+
 	
 	JTextField jtf_name = new JTextField("대화명을 입력하세요",20);
 	JButton jbtn_search = new JButton("찾기");
@@ -57,9 +58,16 @@ public class ChatView extends JFrame implements ActionListener {
 	JScrollPane jsp = new JScrollPane(jtb);
 	JSplitPane jspp = new JSplitPane(SwingConstants.VERTICAL, jp_first,jp_second);
 	
-	public ChatView() { // 메인과 함께 단위테스트용 지워야함
-		initDisplay(true);
-	}
+	//추가
+	LoginView lv = null;
+	///////////////////////////////////
+	String myid = null;			 //
+	//↑								 //
+	public ChatView(LoginView lv) {	 //
+		this.myid = lv.myid;		 //
+		System.out.println("아이디넘어감 : "+  myid);	 //
+	}								 //
+	///////////////////////////////////
 	
 	// ChatView가 실행되면서 동시에 TalkClienThread가 생성되고
 	// run()메소드로 쓰레드가 실행됩니다.
@@ -160,16 +168,13 @@ public class ChatView extends JFrame implements ActionListener {
 		
 		// NICKNAME_CHANGE
 		} else if (jbtn_change == obj) {
-			String afterName = JOptionPane.showInputDialog("변경할 대화명을 입력하세요.");
-			if (afterName == null || afterName.trim().length() < 1) {
-				errorMsg("변경할 대화명을 입력해주세요.");
-				return;
-			}else {
-				tc.changeNickName(afterName);
+			/////////////////////////////////////////////
+			lv = new LoginView();
+			System.out.println(myid); // null이 찍힌다.
+			changeView_02 cv = new changeView_02(this);////
+			cv.initDisplay();                          //
+			/////////////////////////////////////////////
 			}
 		}
-	}////////////////////// end of actionPerformed
-	public static void main(String[] args) {//기본생성자와 함께 단위테스트용 지워야함
-	   new ChatView();
-	}
-}
+	}////////////////////// end of class
+
