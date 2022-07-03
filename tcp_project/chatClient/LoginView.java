@@ -20,7 +20,7 @@ public class LoginView extends JFrame implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	//선언부
 
-	String imgPath = "C:\\java\\workspace_java\\이미지\\";
+	String imgPath = "D:\\java_study\\workspace_java\\kh_javaAC\\TCPPROJECT_mylocal\\src\\이미지\\";
 	JLabel jlb_id = new JLabel("아이디");
 	JLabel jlb_pw = new JLabel("패스워드");
 	Font jl_font = new Font("맑은고딕체", Font.BOLD, 14);
@@ -130,10 +130,9 @@ public class LoginView extends JFrame implements ActionListener {
 						errorMsg("존재하지 않는 아이디입니다.");
 						return;
 					}else {
+						myid = pmVO.getMem_id();
 						TalkClient tc = new TalkClient(nickName);
 						new ChatView(tc);
-						myid = pmVO.getMem_id();
-						new ChatView(this);
 						tc.init();
 						dispose();
 					}

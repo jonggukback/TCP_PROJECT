@@ -58,15 +58,15 @@ public class ChatView extends JFrame implements ActionListener {
 	JScrollPane jsp = new JScrollPane(jtb);
 	JSplitPane jspp = new JSplitPane(SwingConstants.VERTICAL, jp_first,jp_second);
 	
-	//추가
-	LoginView lv = null;
 	///////////////////////////////////
 	String myid = null;			 //
 	//↑								 //
-	public ChatView(LoginView lv) {	 //
-		this.myid = lv.myid;		 //
-		System.out.println("아이디넘어감 : "+  myid);	 //
-	}								 //
+//	public ChatView(LoginView lv) {	 //
+//		this.myid = lv.myid;		 //
+//		System.out.println("아이디넘어감 : "+  myid);	 //
+//		initDisplay(true);
+//	
+//	}								 //
 	///////////////////////////////////
 	
 	// ChatView가 실행되면서 동시에 TalkClienThread가 생성되고
@@ -74,12 +74,21 @@ public class ChatView extends JFrame implements ActionListener {
 	public ChatView(TalkClient tc) {
 		JFrame.setDefaultLookAndFeelDecorated(true);
 		this.tc = tc;
+		this.myid = tc.myid;
 		this.nickName =tc.nickName;
 		TalkClientThread tct = new TalkClientThread(this);
 		tct.start();
 		initDisplay(true);
 	}
-	
+/*
+ 	생성자 위치의 순서에 따라서 초기화 되는 순서가 달리진다. 이 생성자가
+  	아래로 오게되면 위의 TalkClient에 대한 정보들이 초기화 되므로 틀린 방법이다.
+ *	public ChatView(LoginView lv) {	 
+ *		this.myid = lv.myid;		
+ *		System.out.println("아이디넘어감 : "+  myid);	
+ *		initDisplay(true);
+	} 
+ */	
 	public void initDisplay(boolean is) {
 		/////////////////////////배경 이미지/////////////////////////////
 		back = getToolkit().getImage("C:\\java\\workspace_java\\이미지\\채팅창 배경.png");
@@ -169,10 +178,9 @@ public class ChatView extends JFrame implements ActionListener {
 		// NICKNAME_CHANGE
 		} else if (jbtn_change == obj) {
 			/////////////////////////////////////////////
-			lv = new LoginView();
-			System.out.println(myid); // null이 찍힌다.
-			changeView_02 cv = new changeView_02(this);////
-			cv.initDisplay();                          //
+			System.out.println("회원수정 누르는 시점의 myid : " + myid); // 해결완료 
+			changeView chv = new changeView(this);
+			chv.initDisplay();
 			/////////////////////////////////////////////
 			}
 		}

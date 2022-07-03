@@ -22,8 +22,7 @@ public class changeView extends JFrame implements ActionListener {
 	 ****************************************/
 	boolean box_toggle 	= false;	// 일종의 토글박스 기능 - 클릭시 입력칸들 활성화/비활성화
 	MemberDAO mDao = new MemberDAO();	
-//	String myid = null;
-	String myid = "123";
+	String myid = null;
 	
 	// J입력
 	JLabel jlb_id		= new JLabel("아이디");		   			// 아이디 라벨
@@ -32,7 +31,7 @@ public class changeView extends JFrame implements ActionListener {
 	JLabel jlb_repw 	= new JLabel("PW 확인");	 				// 비번변경  라벨
 	JLabel jlb_nick		= new JLabel("닉네임 변경");				// 닉네임변경 라벨
 
-	JTextField 		jtf_id			= new JTextField(myid);		// 로그인에서 받아오는 아이디
+//	JTextField 		jtf_id			= new JTextField(myid);		// 로그인에서 받아오는 아이디
 	JPasswordField 	jpf_pw			= new JPasswordField("");	// 현재 비밀번호 입력칸
 	JPasswordField 	jpf_changepw	= new JPasswordField("");	// 변경 비밀번호 입력칸
 	JPasswordField 	jpf_repw		= new JPasswordField("");	// 재확인	 입력칸
@@ -61,15 +60,17 @@ public class changeView extends JFrame implements ActionListener {
 	}
 	public changeView(ChatView cv) {
 		this.myid = cv.myid; 
+		System.out.println("chatview의 myid값 불러오기 성공 : " + myid);
 	}
 	
 	/****************************************
 	 * 				   화면처리				*	
 	 ****************************************/
 	public void initDisplay() {
+		//선언부에 두게되면 생성자보다 먼저 초기화가 되면서 값 반영이 되지 않는다.
+		JTextField 	jtf_id	= new JTextField(myid);		// 로그인에서 받아오는 아이디
 		////////////////////////////////////////////////////////////
 		////////////////////////////////////////////////////////////
-		
 	    this.setLayout(null);									// 레이아웃
 	    this.setTitle("꽉자바 ver.1");							// 타이틀 붙이기
 	    this.setSize(450, 700);									// 실행창 크기
@@ -93,7 +94,7 @@ public class changeView extends JFrame implements ActionListener {
 	    // 아이디 텍스트
 	    jtf_id.setBounds(140, 40, 200, 40);				// 위치지정
 	    jtf_id.setEnabled(box_toggle);					// 디폴트 : 비활성화 상태
-	    this.add(jtf_id);							// 붙이기
+	    this.add(jtf_id);								// 붙이기
         //////////////////////////// 아이디 /////////////////////////////////
 	    
         /////////////////////////// 비밀번호 ////////////////////////////////
@@ -212,4 +213,5 @@ public class changeView extends JFrame implements ActionListener {
 		cv.initDisplay();
 	}
 
-}/////////////////[end of class changeView]////////////////
+}/////////////////[end of class changeView_02]////////////////
+
