@@ -193,6 +193,7 @@ public class changeView extends JFrame implements ActionListener {
 			}
 		
 		if (obj == jbtn_update) {						// '변경하기 버튼'이 눌리면
+			
 	// user_pw에 입력받은 텍스트를 넣음 
 			int result = mDao.editMember(user_nickname,user_repw,myid); 
 		    if(result == -1) {
@@ -205,9 +206,8 @@ public class changeView extends JFrame implements ActionListener {
 		
 		if (obj == jbtn_del) {							// '삭제하기 버튼'이 눌리면
 			int result = mDao.withdrawal(myid, user_repw); 
+			dispose();
 			}
 		}//////////////////[end of actionPerformed]//////////////////////
 	
-	
-}/////////////////[end of class changeView_02]////////////////
-
+}/////////////////[end of class changeView]////////////////
