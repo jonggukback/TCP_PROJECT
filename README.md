@@ -1,4 +1,3 @@
 # TCP_PROJECT
 .gitignore : .classpath, .project
-
-포크기능확인
+포크기능 확인
